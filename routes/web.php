@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\MemberController;
+use App\Models\Member;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,3 +45,14 @@ Route::get('/no-access', function () {
     echo "You are not allowed to access the page.";
     die;
 });
+
+Route::get('/members', [MemberController::class, 'index'])->name('member');
+
+
+// function () {
+//     $members = Member::with('group')->paginate(10);
+//     return view('members', ['members' => $members]);
+// });
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
