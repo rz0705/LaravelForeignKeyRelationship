@@ -6,9 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function Laravel\Prompts\alert;
-
-class WebGuard
+class MemberAccess
 {
     /**
      * Handle an incoming request.
@@ -17,7 +15,6 @@ class WebGuard
      */
     public function handle(Request $request, Closure $next)
     {
-        // dd(session()->has('user_id'));
         if (session()->has('user_id')) {
             return $next($request);
         } else {

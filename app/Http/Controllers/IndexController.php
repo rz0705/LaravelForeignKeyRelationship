@@ -9,18 +9,16 @@ use App\Models\Group;
 class IndexController extends Controller
 {
     //
-    // public function index()
-    // {
-    //     $members = Member::with('group')->paginate(10);
-    //     dd($members);
-    //     return view('members.index', compact('members'));
-    // }
+    public function index(Request $request)
+    {
+        $sort = $request->input('sort', 'asc');
+        $members = Member::with('group')->orderBy('member_id', $sort)->paginate(10);
+        return view('members.index', compact('members'));
+    }
 
-    // public function group()
-    // {
-    //     $groups = Group::with('member')->paginate(10);
-    //     dd($groups);
-
-    //     return view('groups.index', compact('groups'));
-    // }
+    public function group()
+    {
+        $groups = Group::with('member')->paginate(10);
+        return view('groups', compact('groups'));
+    }
 }

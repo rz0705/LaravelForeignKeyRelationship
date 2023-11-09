@@ -15,44 +15,23 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes();
 
-Route::middleware(['guard', 'web'])->group(function () {
-    //protected
-    Route::get('/data', [IndexController::class, 'index']);
-    Route::get('/group', [IndexController::class, 'group']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('data', [IndexController::class, 'index']);
+    Route::get('group', [IndexController::class, 'group']);
+    Route::get('members', [MemberController::class, 'index'])->name('members');
+    Route::get('member/add', [MemberController::class, 'add'])->name('add');
+    Route::post('member/add', [MemberController::class, 'insert'])->name('insert');
+    
+    Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('profile', function () {
+        return view('profile');
+    })->name("profile");
 });
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/profile', function () {
-    return "Welcome To your Profile";
-})->name("profile");
 
-Route::get('/login', function () {
-    session()->put('user_id', 1);
-    return redirect('/');
-})->name("login");
-
-Route::get('/logout', function () {
-    session()->forget('user_id');
-    return redirect('/');
-})->name("logout");
-
-Route::get('/no-access', function () {
-    echo "You are not allowed to access the page.";
-    die;
-});
-
-Route::get('/members', [MemberController::class, 'index'])->name('member');
-
-
-// function () {
-//     $members = Member::with('group')->paginate(10);
-//     return view('members', ['members' => $members]);
-// });
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

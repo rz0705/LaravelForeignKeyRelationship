@@ -12,6 +12,6 @@ class Member extends Model
 
     public function group()
     {
-        return $this->hasMany('App\Models\Group', 'group_id', 'group_id');
+        return $this->hasOne('App\Models\Group', 'group_id', 'group_id');
     }
 }

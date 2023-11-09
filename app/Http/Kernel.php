@@ -46,7 +46,8 @@ class Kernel extends HttpKernel
         ],
         'guard' => [
             \App\Http\Middleware\AgeCheck::class,
-            \App\Http\Middleware\LoggedInCheck::class
+            \App\Http\Middleware\LoggedInCheck::class,
+            \App\Http\Middleware\MemberAccess::class,
         ]
     ];
 
