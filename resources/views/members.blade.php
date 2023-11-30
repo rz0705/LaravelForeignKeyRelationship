@@ -28,8 +28,12 @@
                     <td>{{ $member->contact }}</td>
                     <td>{{ $member->group->name }}</td>
                     <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <a href="{{ route('edit', ['id' => $member->member_id]) }}">
+                            <button type="button" class="btn btn-outline-success btn-sm">Edit</button>
+                        </a>&nbsp;
+                        <a href="{{ route('delete', ['id' => $member->member_id]) }}">
+                            <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                        </a>
                     </td>
                 </tr>
             @endforeach

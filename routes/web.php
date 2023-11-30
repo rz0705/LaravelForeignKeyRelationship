@@ -18,12 +18,14 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('data', [IndexController::class, 'index']);
-    Route::get('group', [IndexController::class, 'group']);
+    // Route::get('data', [IndexController::class, 'index'])->name('data');
+    Route::get('group', [IndexController::class, 'group'])->name('group');
     Route::get('members', [MemberController::class, 'index'])->name('members');
     Route::get('member/add', [MemberController::class, 'add'])->name('add');
     Route::post('member/add', [MemberController::class, 'insert'])->name('insert');
-    
+    Route::get('member/edit/{id}', [MemberController::class, 'edit'])->name('edit');
+    Route::get('member/delete', [MemberController::class, 'delete'])->name('delete');
+
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('profile', function () {
         return view('profile');
