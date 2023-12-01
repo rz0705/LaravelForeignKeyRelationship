@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between">
         <h2>All Members
         </h2>
-        <a href="{{ route('add') }}">
+        <a href="{{ route('addmember') }}">
             <button type="button" class="btn btn-outline-secondary btn-sm">Add Member</button>
         </a>
     </div><br>
@@ -31,13 +31,23 @@
                         <a href="{{ route('edit', ['id' => $member->member_id]) }}">
                             <button type="button" class="btn btn-outline-success btn-sm">Edit</button>
                         </a>&nbsp;
-                        <a href="{{ route('delete', ['id' => $member->member_id]) }}">
-                            <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
-                        </a>
+
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDelete('{{ $member->name }}', '{{ route('delete', ['id' => $member->member_id]) }}')">Delete</button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     {{ $members->links() }}
+
+    <script>
+        function confirmDelete(memberName, deleteUrl) {
+            if (confirm(`Are you sure you want to delete ${memberName}?`)) {
+                // If the user clicks "OK" in the confirmation dialog, proceed with the deletion.
+                window.location.href = deleteUrl;
+            } else {
+                // If the user clicks "Cancel," do nothing.
+            }
+        }        
+    </script>
 @endsection
