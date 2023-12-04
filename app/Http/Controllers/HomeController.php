@@ -38,10 +38,6 @@ class HomeController extends Controller
             $query->where('name', 'like', '%'.$search.'%');
         })->with('group')->get();
 
-        // Display the users
-        dd($users);
-
-
         $html = '<ul>';
         foreach ($users as $key => $user) {
             $html .= "<li><b>NAME: </b> $user->name   |    ";
@@ -50,7 +46,6 @@ class HomeController extends Controller
         }
         $html .= '</ul>';
 
-        echo $html;
         $queries = DB::getQueryLog();
         // dd($queries);
 

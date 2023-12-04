@@ -11,8 +11,16 @@ class MemberController extends Controller
     //
     public function index()
     {
-        $members = Member::with('group')->orderByRaw('member_id DESC')->paginate(10);
-        return view('members', ['members' => $members]);
+        $group_id= isset($_GET['group']) ? $_GET['group'] : '';
+        $selected_groups_id = explode(",", $group_id);
+
+        // dd($group_id);
+        $members = Member::with('group')->orderByRaw('member_id DESC')->when($group_id != '', function ($q) use($selected_groups_id){
+            return $q->whereIn('group_id', $selected_groups_id);
+        })->paginate(10);
+        $groups = Group::all();
+
+        return view('members', ['members' => $members], ['groups' => $groups]);
     }
 
     public function addmember()
@@ -43,11 +51,7 @@ class MemberController extends Controller
     {
         $groups = Group::all();
         $editid = Member::find($id);
-        // dd($editid);
-        // return view('members.edit');
-        // $members = Member::with('group');
         return view('members.edit', ['editid' => $editid, 'groups' => $groups]);
-        // return "Member Edit";
     }
 
     public function update(Request $request, $id)
