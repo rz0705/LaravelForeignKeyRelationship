@@ -11,16 +11,31 @@ class MemberController extends Controller
     //
     public function index()
     {
-        $group_id= isset($_GET['group']) ? $_GET['group'] : '';
-        $selected_groups_id = explode(",", $group_id);
+        $group_id = isset($_GET['group']) ? $_GET['group'] : '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$selected_groups_id = explode(",", $group_id);
 
-        // dd($group_id);
-        $members = Member::with('group')->orderByRaw('member_id DESC')->when($group_id != '', function ($q) use($selected_groups_id){
-            return $q->whereIn('group_id', $selected_groups_id);
-        })->paginate(10);
-        $groups = Group::all();
+$members = Member::with('group')
+    ->orderByRaw('member_id DESC')
+    ->when($group_id != '' || $search != '', function ($q) use ($selected_groups_id, $search, $group_id) {
+        $q->when($group_id != '', function ($subQ) use ($selected_groups_id) {
+            return $subQ->whereIn('group_id', $selected_groups_id);
+        })
+        ->when($search != '', function ($subQ) use ($search) {
+            return $subQ->where(function ($subSubQ) use ($search) {
+                // Adjust this based on how you want to perform the search
+                $subSubQ->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('contact', 'LIKE', '%' . $search . '%')
+                    ->orWhere('member_id', 'LIKE', '%' . $search . '%');
+            });
+        });
+    })
+    ->paginate(10);
 
-        return view('members', ['members' => $members], ['groups' => $groups]);
+$groups = Group::all();
+
+return view('members', ['members' => $members, 'groups' => $groups]);
     }
 
     public function addmember()
