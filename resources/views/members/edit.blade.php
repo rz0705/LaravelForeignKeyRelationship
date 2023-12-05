@@ -1,15 +1,21 @@
 @extends('layouts.master')
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @php
+        $group_id = isset($_GET['group']) ? $_GET['group'] : '';
+        $selected_groups_id = explode(',', $group_id);
+    @endphp
+
     <h2>Edit Member</h2><br>
     <div class="card">
         <div class="card-body">
@@ -17,22 +23,25 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="name" name="name" class="form-control" id="name" value= "{{$editid->name}}">
+                    <input type="name" name="name" class="form-control" id="name" value= "{{ $editid->name }}">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input name="email" class="form-control" id="email" value= "{{$editid->email}}">
+                    <input name="email" class="form-control" id="email" value= "{{ $editid->email }}">
                 </div>
                 <div class="mb-3">
                     <label for="contact" class="form-label">Contact</label>
-                    <input type="varchar" name="contact" class="form-control" id="contact" value= "{{$editid->contact}}">
+                    <input type="varchar" name="contact" class="form-control" id="contact"
+                        value= "{{ $editid->contact }}">
                 </div>
                 <div class="mb-3">
                     <label for="group">Group</label>
+                    {{-- @dd($editid->group_id); --}}
                     <select name="group_id" class="form-control" id="group">
                         {{-- @dd($members); --}}
-                        @foreach ($groups as $group) 
-                            <option value="{{$group->group_id}}" {{($group->group_id == $group->id)  ? 'selected' : ''}}>{{$group->name}}</option>
+                        @foreach ($groups as $group)
+                            <option value="{{ $group->group_id }}" @if ($group->group_id == $editid->group_id) selected @endif>
+                                {{ $group->name }}</option>
                         @endforeach
                     </select>
                 </div>
