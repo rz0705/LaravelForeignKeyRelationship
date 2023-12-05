@@ -5,37 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class MemberController extends Controller
 {
-    //
     public function index()
     {
         $group_id = isset($_GET['group']) ? $_GET['group'] : '';
-$search = isset($_GET['search']) ? $_GET['search'] : '';
-$selected_groups_id = explode(",", $group_id);
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        $selected_groups_id = explode(",", $group_id);
 
-$members = Member::with('group')
-    ->orderByRaw('member_id DESC')
-    ->when($group_id != '' || $search != '', function ($q) use ($selected_groups_id, $search, $group_id) {
-        $q->when($group_id != '', function ($subQ) use ($selected_groups_id) {
-            return $subQ->whereIn('group_id', $selected_groups_id);
-        })
-        ->when($search != '', function ($subQ) use ($search) {
-            return $subQ->where(function ($subSubQ) use ($search) {
-                // Adjust this based on how you want to perform the search
-                $subSubQ->where('name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('email', 'LIKE', '%' . $search . '%')
-                    ->orWhere('contact', 'LIKE', '%' . $search . '%')
-                    ->orWhere('member_id', 'LIKE', '%' . $search . '%');
-            });
-        });
-    })
-    ->paginate(10);
+        $members = Member::with('group')
+            ->orderByRaw('member_id DESC')
+            ->when($group_id != '' || $search != '', function ($q) use ($selected_groups_id, $search, $group_id) {
+                $q->when($group_id != '', function ($subQ) use ($selected_groups_id) {
+                    return $subQ->whereIn('group_id', $selected_groups_id);
+                })
+                    ->when($search != '', function ($subQ) use ($search) {
+                        return $subQ->where(function ($subSubQ) use ($search) {
+                            // Adjust this based on how you want to perform the search
+                            $subSubQ->where('name', 'LIKE', '%' . $search . '%')
+                                ->orWhere('email', 'LIKE', '%' . $search . '%')
+                                ->orWhere('contact', 'LIKE', '%' . $search . '%')
+                                ->orWhere('member_id', 'LIKE', '%' . $search . '%');
+                        });
+                    });
+            })
+            ->paginate(10);
 
-$groups = Group::all();
+        $groups = Group::all();
 
-return view('members', ['members' => $members, 'groups' => $groups]);
+        return view('members', ['members' => $members, 'groups' => $groups]);
     }
 
     public function addmember()
@@ -49,7 +49,7 @@ return view('members', ['members' => $members, 'groups' => $groups]);
     {
         $request->validate([
             'name' => ['required', 'max:255'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:members,email', 'email:rfc,dns'],
             'contact' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:10'],
         ]);
 
@@ -73,7 +73,7 @@ return view('members', ['members' => $members, 'groups' => $groups]);
     {
         $request->validate([
             'name' => ['required', 'max:255'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', Rule::unique('members', 'email')->ignore($id, 'member_id'), 'email:rfc,dns'],
             'contact' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:10'],
         ]);
 

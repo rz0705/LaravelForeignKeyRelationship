@@ -6,7 +6,7 @@
         $selected_groups_id = explode(',', $group_id);
     @endphp
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex">
         <h2>All Members</h2>
         <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
             <div class="flex items-left p-xl-1">

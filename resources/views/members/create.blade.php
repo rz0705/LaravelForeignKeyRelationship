@@ -17,15 +17,15 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="name" name="name" class="form-control" id="name" value= "">
+                    <input type="name" name="name" class="form-control" id="name" value= "{{old('name')}}">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input name="email" class="form-control" id="email" value= "">
+                    <input name="email" class="form-control" id="email" value= "{{old('email')}}">
                 </div>
                 <div class="mb-3">
                     <label for="contact" class="form-label">Contact</label>
-                    <input type="varchar" name="contact" class="form-control" id="contact" value= "">
+                    <input type="varchar" name="contact" class="form-control" id="contact" value= "{{old('contact')}}">
                 </div>
                 <div class="mb-3">
                     <label for="group">Group</label>

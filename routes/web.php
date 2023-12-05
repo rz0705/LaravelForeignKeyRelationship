@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 /*
@@ -32,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile', function () {
         return view('profile');
     })->name("profile");
+    Route::get('updateprofile', [ProfileController::class, 'edit'])->name("updateprofile");
+    Route::post('updateprofile', [ProfileController::class, 'update'])->name("updateprofile.post");
 });
 
 Route::get('/', function () {
