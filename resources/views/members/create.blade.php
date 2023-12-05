@@ -45,7 +45,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Add Member</button>
+                <button type="submit" class="btn btn-outline-success btn-sm">Add Member</button>
             </form>
         </div>
     </div>

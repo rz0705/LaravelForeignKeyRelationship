@@ -49,6 +49,6 @@ class HomeController extends Controller
         $queries = DB::getQueryLog();
         // dd($queries);
 
-        return view('home');
+        return view('dashboard');
     }
 }

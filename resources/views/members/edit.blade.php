@@ -53,7 +53,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Update Member</button>
+                <button type="submit" class="btn btn-outline-success btn-sm">Update Member</button>
             </form>
         </div>
     </div>

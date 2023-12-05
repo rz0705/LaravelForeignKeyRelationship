@@ -52,7 +52,8 @@
                     <input type="password" name="newpassword_confirmation" class="form-control" id="newpassword_confirmation" value="">
                 </div>
 
-                <button type="submit" class="btn btn-success">Update</button>
+                {{-- <button type="submit" class="btn btn-success">Update</button> --}}
+                <button type="submit" class="btn btn-outline-success btn-sm">Update</button>
             </form>
         </div>
     </div>

@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('member/delete/{id}', [MemberController::class, 'delete'])->name('delete');
     // Route::delete('member/{id}', [MemberController::class, 'destroy'])->name('members.destroy');
 
-    Route::get('home', [HomeController::class, 'index'])->name('home');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('home');
     Route::get('profile', function () {
         return view('profile');
     })->name("profile");
