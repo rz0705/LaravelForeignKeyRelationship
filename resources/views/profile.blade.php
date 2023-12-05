@@ -3,7 +3,7 @@
 @section('content')
 
 <body>
-    <h2>My Profile</h2><hr><br>
+    <h2>My Profile</h2><hr>
     <div class="card">
         <div class="card-body">
             <form method="POST" action="{{ route('updateprofile.post') }}">
