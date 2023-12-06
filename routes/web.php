@@ -35,10 +35,9 @@ Route::middleware(['auth'])->group(function () {
     })->name("profile");
     Route::get('updateprofile', [ProfileController::class, 'edit'])->name("updateprofile");
     Route::post('updateprofile', [ProfileController::class, 'update'])->name("updateprofile.post");
+    Route::post('updatepassword', [ProfileController::class, 'updatepassword'])->name("updatepassword.post");
 });
 
 Route::get('/', function () {
     return redirect('/login');
 });
-
-
