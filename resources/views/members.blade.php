@@ -21,7 +21,7 @@
                 <select id="group-select" name="group-select[]" multiple onchange="filterMembers()"
                     class="border-black rounded px-2 py-1 focus:outline-none focus:border-blue-500 js-example-basic-multiple"
                     style="width: 100%;">
-                    {{-- <option value="" selected>Select Group</option> --}}
+                    <option value="" selected>Select Group</option>
                     @foreach ($groups as $group)
                         <option value="{{ $group->group_id }}" @if (in_array($group->group_id, $selected_groups_id)) selected @endif>
                             {{ $group->name }}

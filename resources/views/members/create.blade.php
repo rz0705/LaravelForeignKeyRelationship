@@ -17,7 +17,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="name" name="name" class="form-control" id="name" value= "{{old('name')}}" autocomplete="off" autofocus>
+                    <input type="varchar" name="name" class="form-control" id="name" value= "{{old('name')}}" autocomplete="off" autofocus>
                     @error('name')
                         <p style="color:red">{{ $message }}</p>
                     @enderror

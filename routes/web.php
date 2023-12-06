@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GroupController;
 use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 /*
@@ -19,15 +20,16 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-    // Route::get('data', [IndexController::class, 'index'])->name('data');
-    Route::get('group', [IndexController::class, 'group'])->name('group');
+    Route::get('groups', [IndexController::class, 'group'])->name('groups');
     Route::get('members', [MemberController::class, 'index'])->name('members');
     Route::get('member/add', [MemberController::class, 'addmember'])->name('addmember');
     Route::post('member/add', [MemberController::class, 'insert'])->name('insert');
     Route::get('member/edit/{id}', [MemberController::class, 'edit'])->name('edit');
     Route::post('member/edit/{id}', [MemberController::class, 'update'])->name('update');
     Route::get('member/delete/{id}', [MemberController::class, 'delete'])->name('delete');
-    // Route::delete('member/{id}', [MemberController::class, 'destroy'])->name('members.destroy');
+    Route::get('group/add', [GroupController::class, 'addgroup'])->name('addgroup');
+    Route::post('group/add', [GroupController::class, 'insert'])->name('insert');
+    Route::get('group/delete/{id}', [GroupController::class, 'delete'])->name('delete');
 
     Route::get('dashboard', [HomeController::class, 'index'])->name('home');
     Route::get('profile', function () {
