@@ -102,7 +102,7 @@
 
                 <div class="mb-3">
                     <label for="oldpass" class="form-label">Old password</label>
-                    <input type="password" name="oldpassword" class="form-control" id="oldpass" value="">
+                    <input type="password" name="oldpassword" class="form-control" id="oldpass" value="" autocomplete="off">
                     @error('oldpassword')
                         <p style="color:red">{{ $message }}</p>
                     @enderror
@@ -110,7 +110,7 @@
 
                 <div class="mb-3">
                     <label for="newpass" class="form-label">New password</label>
-                    <input type="password" name="newpassword" class="form-control" id="newpass" value="">
+                    <input type="password" name="newpassword" class="form-control" id="newpass" value="" autocomplete="off">
                     @error('newpassword')
                         <p style="color:red">{{ $message }}</p>
                     @enderror
@@ -118,7 +118,7 @@
 
                 <div class="mb-3">
                     <label for="newpassword_confirmation" class="form-label">Confirm new password</label>
-                    <input type="password" name="newpassword_confirmation" class="form-control" id="newpassword_confirmation" value="">
+                    <input type="password" name="newpassword_confirmation" class="form-control" id="newpassword_confirmation" value="" autocomplete="off">
                     @error('newpassword_confirmation')
                         <p style="color:red">{{ $message }}</p>
                     @enderror
