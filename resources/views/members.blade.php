@@ -6,6 +6,9 @@
         $selected_groups_id = explode(',', $group_id);
     @endphp
     
+    @if(session('success'))
+        <h2 style="color: green; font-size: 20px;">{{ session('success') }}</h2>
+    @endif
     @if(session('delete'))
         <h2 style="color: green; font-size: 20px;">{{ session('delete') }}</h2>
     @endif
