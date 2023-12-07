@@ -21,8 +21,7 @@
             <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md items-left p-xl-1">
                 <label for="search" class="text-gray-600 ">Search:</label>
                 <input type="text" id="search" name="search" value="{{ request('search') }}"
-                    class="border-black rounded px-2 py-1 focus:outline-none focus:border-blue-500"
-                    onchange="performSearch()" autofocus onfocus="moveCursorToEnd()">
+                    class="border-black rounded px-2 py-1 focus:outline-none focus:border-blue-500" autocomplete="off" autofocus onchange="performSearch()"  onfocus="moveCursorToEnd()">
 
                 <a href="{{ route('addgroup') }}">
                     <button type="button" class="btn btn-outline-secondary btn-sm">Add Group</button>
