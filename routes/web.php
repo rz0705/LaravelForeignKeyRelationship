@@ -1,11 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GroupController;
-use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
