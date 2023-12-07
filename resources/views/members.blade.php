@@ -55,8 +55,7 @@
                         <td>{{ $member->contact }}</td>
                         <td>{{ $member->group->name }}</td>
                         <td>
-                            <a href="{{ route('edit', ['id' => $member->member_id]) }}">
-                                <button type="button" class="btn btn-outline-success btn-sm">Edit</button>
+                            <a href="{{ route('edit', ['id' => $member->member_id]) }}" class="btn btn-outline-success btn-sm">Edit
                             </a>&nbsp;
                             <button type="button" class="btn btn-outline-danger btn-sm"
                                 onclick="confirmDelete('{{ $member->name }}', '{{ route('delete', ['id' => $member->member_id]) }}')">Delete</button>

@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class MemberController extends Controller
 {
-    public function index()
+    public function member()
     {
         $group_id = isset($_GET['group']) ? $_GET['group'] : '';
         $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -41,7 +41,6 @@ class MemberController extends Controller
     public function addmember()
     {
         $groups = Group::all();
-        // dd($groups);
         return view('members.create', ['groups' => $groups]);
     }
 
@@ -78,7 +77,6 @@ class MemberController extends Controller
         ]);
 
         $member = Member::find($id);
-        // dd($member);
         if (!$member) {
             // Handle the case where the member with the given ID is not found
             return redirect('members')->with('error', 'Member not found');
@@ -96,7 +94,6 @@ class MemberController extends Controller
     public function delete(Request $request, $id)
     {
         $member = Member::find($id);
-        // dd($member);
         if (!$member) {
             // Handle the case where the member with the given ID is not found
             return redirect('members')->with('error', 'Member not found');
@@ -104,6 +101,5 @@ class MemberController extends Controller
 
         $member->delete();
         return redirect('members')->with('success', 'Member deleted successfully');
-        // return view('members.confirm-delete', ['member' => $member]);
     }
 }

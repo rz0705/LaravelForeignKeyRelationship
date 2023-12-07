@@ -19,7 +19,6 @@ class ProfileController extends Controller
             'email' => ['required', 'email', 'unique:users,email,' . auth()->user()->id]            
         ]);
 
-        // auth()->user()->update($request->only('name', 'email', ));
         auth()->user()->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),

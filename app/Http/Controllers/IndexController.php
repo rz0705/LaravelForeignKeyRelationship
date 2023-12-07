@@ -8,7 +8,6 @@ use App\Models\Group;
 
 class IndexController extends Controller
 {
-    //
     public function index(Request $request)
     {
         $sort = $request->input('sort', 'asc');
@@ -18,7 +17,8 @@ class IndexController extends Controller
 
     public function group()
     {
-        $groups = Group::with('member')->paginate(10);
+        $groups = Group::paginate(10);
+            dd($groups);
         return view('groups', compact('groups'));
     }
 }
