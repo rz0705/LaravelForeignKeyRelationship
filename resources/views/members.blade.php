@@ -5,6 +5,11 @@
         $group_id = isset($_GET['group']) ? $_GET['group'] : '';
         $selected_groups_id = explode(',', $group_id);
     @endphp
+    
+    @if(session('delete'))
+        <h2 style="color: green; font-size: 20px;">{{ session('delete') }}</h2>
+    @endif
+
     <div class="min-h-screen flex flex-col">
         <header class="py-4">
             <div class="container mx-auto">

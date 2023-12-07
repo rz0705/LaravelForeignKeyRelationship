@@ -99,7 +99,10 @@ class MemberController extends Controller
             return redirect('members')->with('error', 'Member not found');
         }
 
+        if($member->exists()){
+            return redirect('members')->with('delete', 'Member deleted successfully');
+        }
+
         $member->delete();
-        return redirect('members')->with('success', 'Member deleted successfully');
     }
 }

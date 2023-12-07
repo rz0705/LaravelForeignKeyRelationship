@@ -76,6 +76,11 @@ class GroupController extends Controller
             return redirect('groups')->with('error', 'group not found');
         }
 
+        // Check if the group has any members
+        if($group->members()->exists()){
+            return redirect('groups')->with('exist', 'Members exist in the group.');
+        }
+
         $group->delete();
         return redirect('groups')->with('success', 'Group deleted successfully');
     }
