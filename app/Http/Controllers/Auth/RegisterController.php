@@ -52,7 +52,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'birthdate' => ['required', 'date'],
+            'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])/', 'confirmed'],
+        ],[
+            'password.regex' => 'The password must be contain at least one lowercase letter, one uppercase letter, one digit, and one special character (@$!%*#?&).'
         ]);
     }
 
@@ -67,6 +70,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'birthdate' => $data['birthdate'],
             'password' => Hash::make($data['password']),
         ]);
     }
