@@ -27,6 +27,7 @@ class SendBirthdayNotifications extends Command
      */
     public function handle()
     {
+        // logger("send Birthdate");
         $users = User::whereMonth('birthdate', now()->format('m'))
                     ->whereDay('birthdate', now()->format('d'))
                     ->get();

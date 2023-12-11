@@ -34,13 +34,18 @@ class BirthdayNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+
+        // dd($notifiable);
+        info($notifiable);
+        $name = $notifiable->name;
         return (new MailMessage)
-            ->subject('Happy Birthday, ' . $notifiable->name . '!')
-            ->line('Dear ' . $notifiable->name . ',')
-            ->line('Wishing you a fantastic birthday filled with joy and success.')
-            ->line('May this year bring you even more happiness and achievements.')
-            ->line('Best regards,')
-            ->line('My App');
+            ->subject('Celebrate with Us! 🎉 Happy Birthday, ' . $name . '!')
+            ->view('emails.birthday-greeting', compact('name'));
+            // ->line('Dear ' . $notifiable->name . ',')
+            // ->line('Wishing you a fantastic birthday filled with joy and success.')
+            // ->line('May this year bring you even more happiness and achievements.')
+            // ->line('Best regards,')
+            // ->line('My App');
     }
 
     /**
