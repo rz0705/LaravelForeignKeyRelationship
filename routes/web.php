@@ -46,11 +46,3 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function () {
     return redirect('/login');
 });
-
-// Route::get('birthday', function () {
-//     $notifiable = Auth::user();
-//     // dd($notifiable);
-
-//     // $data = ['name' => '$notifiable->name'];
-//     return view('emails.birthday-greeting',compact('notifiable'));
-// });
