@@ -61,3 +61,11 @@ To publish mail templates, run the following command in your Laravel project:
 ```bash
 php artisan vendor:publish --tag=laravel-mail
 ```
+
+## Publish Lang
+
+To publish lang folder, run the following command in your Laravel project:
+
+```bash
+php artisan lang:publish
+```
