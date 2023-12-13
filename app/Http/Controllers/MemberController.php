@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Http\Requests\AddMemberRequest;
+use App\Http\Requests\EditMemberRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\RedirectResponse;
 
 class MemberController extends Controller
 {
@@ -44,31 +47,15 @@ class MemberController extends Controller
         return view('members.create', ['groups' => $groups]);
     }
 
-    public function insert(Request $request)
+    public function insert(AddMemberRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'unique:members,email', 'email:rfc,dns'],
-            'contact' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:10'],
-        ], [
-            'name.required' => 'The Member Name is required.',
-            'name.max' => 'The Member Name must not exceed 255 characters.',
-            'email.required' => 'The Member Email is required.',
-            'email.email' => 'The Member Email must be a valid email address.',
-            'email.unique' => 'The Member Email already exist.',
-            'contact.required' => 'The Member Contact is required.',
-            'contact.regex' => 'The Member Contact must be a valid number.',
-            'contact.min' => 'The Member Contact must be at least 10 characters.',
-            'contact.max' => 'The Member Contact must not be greater than 10 numbers.',
-        ]);
-
         $member = new Member;
         $member->name = $request->input('name');
         $member->email = $request->input('email');
         $member->contact = $request->input('contact');
         $member->group_id = $request->input('group_id');
         $member->save();
-        return redirect('members');
+        return redirect()->route('members')->with('success', 'Member added successfully');
     }
 
     public function edit($id)
@@ -78,25 +65,10 @@ class MemberController extends Controller
         return view('members.edit', ['editid' => $editid, 'groups' => $groups]);
     }
 
-    public function update(Request $request, $id)
+    public function update(EditMemberRequest $request, $id)
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'email', Rule::unique('members', 'email')->ignore($id, 'member_id'), 'email:rfc,dns'],
-            'contact' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:10'],
-        ], [
-            'name.required' => 'The Member Name is required.',
-            'name.max' => 'The Member Name must not exceed 255 characters.',
-            'email.required' => 'The Member Email is required.',
-            'email.email' => 'The Member Email must be a valid email address.',
-            'email.unique' => 'The Member Email already exist.',
-            'contact.required' => 'The Member Contact is required.',
-            'contact.regex' => 'The Member Contact must be a valid number.',
-            'contact.min' => 'The Member Contact must be at least 10 characters.',
-            'contact.max' => 'The Member Contact must not be greater than 10 numbers.',
-        ]);
-
         $member = Member::find($id);
+        
         if (!$member) {
             // Handle the case where the member with the given ID is not found
             return redirect('members')->with('error', 'Member not found');
@@ -114,6 +86,7 @@ class MemberController extends Controller
     public function delete(Request $request, $id)
     {
         $member = Member::find($id);
+        
         if (!$member) {
             // Handle the case where the member with the given ID is not found
             return redirect('members')->with('error', 'Member not found');

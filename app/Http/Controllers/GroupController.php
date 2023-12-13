@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AddGroupRequest;
+use App\Http\Requests\EditGroupRequest;
 use App\Models\Group;
 
 class GroupController extends Controller
@@ -28,18 +30,8 @@ class GroupController extends Controller
         return view('groups.create', compact('groups'));
     }
 
-    public function insert(Request $request)
+    public function insert(AddGroupRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'description' => ['required', 'max:255'],
-        ], [
-            'name.required' => 'The Group Name is required.',
-            'name.max' => 'The Group Name must not exceed 255 characters.',
-            'description.required' => 'The Group Description is required.',
-            'description.max' => 'The Group Description must not exceed 255 characters.',
-        ]);
-
         $group = new Group;
         $group->name = $request->input('name');
         $group->description = $request->input('description');
@@ -53,18 +45,8 @@ class GroupController extends Controller
         return view('groups.edit', ['editid' => $editid]);
     }
 
-    public function update(Request $request, $id)
+    public function update(EditGroupRequest $request, $id)
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'description' => ['required', 'max:255'],
-        ], [
-            'name.required' => 'The Group Name is required.',
-            'name.max' => 'The Group Name must not exceed 255 characters.',
-            'description.required' => 'The Group Description is required.',
-            'description.max' => 'The Group Description must not exceed 255 characters.',
-        ]);
-
         $group = Group::find($id);
         if (!$group) {
             // Handle the case where the group with the given ID is not found
