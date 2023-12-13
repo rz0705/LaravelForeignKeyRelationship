@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Mail\UserCreated;
+use Illuminate\Support\Facades\Mail;
 
 class VerificationController extends Controller
 {
@@ -38,5 +42,14 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    public function verify(EmailVerificationRequest $request,$id)
+    {    
+        $user = User::find($id);
+        $request->fulfill();
+
+        Mail::to($user)->send(new UserCreated($user->name, $user->email, $user->birthdate));
+        return redirect()->route('home');
     }
 }
