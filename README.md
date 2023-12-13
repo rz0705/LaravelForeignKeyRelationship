@@ -54,7 +54,7 @@ Start server using following command:
 php artisan serve
 ```
 
-## Publish Mail Templates
+### Publish Mail Templates
 
 To publish mail templates, run the following command in your Laravel project:
 
@@ -62,7 +62,7 @@ To publish mail templates, run the following command in your Laravel project:
 php artisan vendor:publish --tag=laravel-mail
 ```
 
-## Publish Lang
+### Publish Lang
 
 To publish lang folder, run the following command in your Laravel project:
 
