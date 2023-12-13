@@ -12,65 +12,34 @@
                 @csrf
                 @method('POST')
                 
-                @if(session()->has('success'))
+                @if(session()->has('danger'))
                     <div class="alert alert-success">
-                        {{ session()->get('success') }}
+                        {{ session()->get('danger') }}
                     </div>
                 @endif
 
-                {{-- Display validation errors --}}
-                {{-- @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif --}}
-
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" value="{{ old('name',auth()->user()->name) }}" autocomplete="off">
-                    @error('name')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
+                    <label for="name" class="form-label">{{ __('app.profile.name') }}</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name',auth()->user()->name) }}" autocomplete="off">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" value="{{ old('email',auth()->user()->email) }}" autocomplete="off">
-                    @error('email')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
+                    <label for="email" class="form-label">{{ __('app.profile.email') }}</label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email',auth()->user()->email) }}" autocomplete="off">
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
 
-                {{-- <div class="mb-3">
-                    <label for="oldpass" class="form-label">Old password</label>
-                    <input type="password" name="oldpassword" class="form-control" id="oldpass" value="">
-                    @error('oldpassword')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="newpass" class="form-label">New password</label>
-                    <input type="password" name="newpassword" class="form-control" id="newpass" value="">
-                    @error('newpassword')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="newpassword_confirmation" class="form-label">Confirm new password</label>
-                    <input type="password" name="newpassword_confirmation" class="form-control" id="newpassword_confirmation" value="">
-                    @error('newpassword_confirmation')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                {{-- <button type="submit" class="btn btn-success">Update</button> --}}
                 <button type="submit" class="btn btn-outline-success btn-sm">Update</button>
+                
             </form>
         </div>
     </div>
@@ -82,49 +51,34 @@
             <form method="POST" action="{{ route('updatepassword.post') }}">
                 @csrf
                 @method('POST')
-                
-                @if(session()->has('danger'))
-                    <div class="alert alert-success">
-                        {{ session()->get('danger') }}
-                    </div>
-                @endif
-
-                {{-- Display validation errors --}}
-                {{-- @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif --}}
 
                 <div class="mb-3">
-                    <label for="oldpass" class="form-label">Old password</label>
-                    <input type="password" name="oldpassword" class="form-control" id="oldpass" value="" autocomplete="off">
-                    @error('oldpassword')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
+                    <label for="oldpass" class="form-label">{{ __('app.profile.oldpassword') }}</label>
+                        <input type="password" name="oldpassword" class="form-control @error('password') is-invalid @enderror" id="oldpass" value="" autocomplete="off">
+                        @error('oldpassword')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label for="newpass" class="form-label">New password</label>
-                    <input type="password" name="newpassword" class="form-control" id="newpass" value="" autocomplete="off">
-                    @error('newpassword')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
+                    <label for="password" class="form-label">{{ __('app.profile.password') }}</label>
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="off">
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
 
                 <div class="mb-3">
-                    <label for="newpassword_confirmation" class="form-label">Confirm new password</label>
-                    <input type="password" name="newpassword_confirmation" class="form-control" id="newpassword_confirmation" value="" autocomplete="off">
-                    @error('newpassword_confirmation')
-                        <p style="color:red">{{ $message }}</p>
-                    @enderror
+                    <label for="password-confirm" class="form-label">{{ __('app.profile.password_confirmation') }}</label>
+                        <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" autocomplete="off">
                 </div>
 
                 <button type="submit" class="btn btn-outline-success btn-sm">Change Password</button>
+
         </div>
     </div>
 </body>

@@ -9,14 +9,17 @@
     @if(session('success'))
         <h2 style="color: green; font-size: 20px;">{{ session('success') }}</h2>
     @endif
+
     @if(session('exist'))
         <h2 style="color: red; font-size: 20px;">{{ session('exist') }}</h2>
     @endif
+
     <div class="min-h-screen flex flex-col">
         <header class="py-4">
             <div class="container mx-auto">
                 <h2>All Groups</h2>
         </header>
+
         <div class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
             <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md items-left p-xl-1">
                 <label for="search" class="text-gray-600 ">Search:</label>
@@ -28,6 +31,7 @@
                 </a>
             </div>
         </div>
+
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -57,6 +61,7 @@
                 @endforeach
             </tbody>
         </table>
+        
         {{ $groups->links() }}
 
         <div id="output"></div>

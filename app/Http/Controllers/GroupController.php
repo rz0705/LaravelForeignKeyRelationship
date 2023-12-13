@@ -33,6 +33,11 @@ class GroupController extends Controller
         $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['required', 'max:255'],
+        ], [
+            'name.required' => 'The Group Name is required.',
+            'name.max' => 'The Group Name must not exceed 255 characters.',
+            'description.required' => 'The Group Description is required.',
+            'description.max' => 'The Group Description must not exceed 255 characters.',
         ]);
 
         $group = new Group;
@@ -53,6 +58,11 @@ class GroupController extends Controller
         $request->validate([
             'name' => ['required', 'max:255'],
             'description' => ['required', 'max:255'],
+        ], [
+            'name.required' => 'The Group Name is required.',
+            'name.max' => 'The Group Name must not exceed 255 characters.',
+            'description.required' => 'The Group Description is required.',
+            'description.max' => 'The Group Description must not exceed 255 characters.',
         ]);
 
         $group = Group::find($id);

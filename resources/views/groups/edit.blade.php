@@ -1,15 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-    {{-- @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif --}}
 
     @php
         $group_id = isset($_GET['group']) ? $_GET['group'] : '';
@@ -21,22 +12,45 @@
         <div class="card-body">
             <form method="POST" action="">
                 @csrf
+
+                @if(session()->has('danger'))
+                    <div class="alert alert-success">
+                        {{ session()->get('danger') }}
+                    </div>
+                @endif
+
                 <div class="mb-3">
-                    <label for="name" class="form-label">Group Name</label>
-                    <input type="varchar" name="name" class="form-control" id="name" value= "{{ old('name',$editid->name) }}" autocomplete="off" autofocus>
+                    <label for="name" class="form-label">{{ __('app.group.name') }}</label>
+                    <input type="varchar" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value= "{{ old('name',$editid->name) }}" onfocus="moveCursorToEnd()" autocomplete="off" autofocus>
                     @error('name')
-                        <p style="color:red">{{ $message }}</p>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
+
                 <div class="mb-3">
-                    <label for="description" class="form-label">Group Description</label>
-                    <input name="description" class="form-control" id="description" value= "{{old('description',$editid->description)}}" autocomplete="off">
-                    @error('description')
-                        <p style="color:red">{{ $message }}</p>
+                    <label for="description" class="form-label">{{ __('app.group.description') }}</label>
+                    <input name="description" class="form-control @error('description') is-invalid @enderror" id="description" value= "{{old('description',$editid->description)}}" autocomplete="off">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
+
                 <button type="submit" class="btn btn-outline-success btn-sm">Update Group</button>
+
             </form>
         </div>
     </div>
+
+    <script>
+        function moveCursorToEnd() {
+                var input = document.getElementById('name');
+                if (input) {
+                    input.setSelectionRange(input.value.length, input.value.length);
+                }
+            }
+    </script>
 @stop
