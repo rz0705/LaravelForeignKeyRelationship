@@ -51,11 +51,20 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'birthdate' => ['required', 'date'],
+            'email' => ['required', 'string', 'email', 'unique:users'],
+            'birthdate' => ['required'],
             'password' => ['required', 'string', 'min:8', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])/', 'confirmed'],
         ],[
-            'password.regex' => 'The password must be contain at least one lowercase letter, one uppercase letter, one digit, and one special character (@$!%*#?&).'
+            'name.required' => 'Name is required.',
+            'name.max' => 'Name must not exceed 255 characters.',
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Email Address must be a valid email address.',
+            'email.unique' => 'Email Address already exist.',
+            'birthdate.required' => 'Birthdate is required.',
+            'password.required' => 'Password is required.',
+            'password.min' => 'Password should contain at least 8 characters.',
+            'password.regex' => 'Password must be contain at least one lowercase letter, one uppercase letter, one digit, and one special character (@$!%*#?&).',
+            'password.confirmed' => 'Password and confirm password do not match.',
         ]);
     }
 
