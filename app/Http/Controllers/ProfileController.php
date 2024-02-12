@@ -32,7 +32,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'oldpassword' => ['required', function ($attribute, $value, $fail) {
-                if (!Hash::check($value, auth()->user()->password)) {
+                if ( !$value == auth()->user()->password) {
                     $fail('Old password is incorrect.');
                 }
             }],
@@ -47,8 +47,9 @@ class ProfileController extends Controller
         );
 
         auth()->user()->update([
-            'password' => Hash::make($request->input('newpassword')),
-            'oldpassword' => Hash::make($request->input('newpassword')),
+          
+            'password' => $request->input('newpassword'),
+            'oldpassword' => $request->input('newpassword'),
         ]);
 
         return redirect()->route('profile')->with('danger', 'Password updated successfully!');
